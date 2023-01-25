@@ -1,75 +1,60 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:taosil_app/helpers/loading/loading_screen.dart';
+import 'package:taosil_app/services/auth/bloc/auth_bloc.dart';
+import 'package:taosil_app/services/auth/bloc/auth_event.dart';
+import 'package:taosil_app/services/auth/bloc/auth_state.dart';
+import 'package:taosil_app/services/auth/firebase_auth_provider.dart';
 import 'package:taosil_app/views/login_view.dart';
+import 'package:taosil_app/views/register_view.dart';
 
-void main() {
+void main(List<String> args) {
+  WidgetsFlutterBinding.ensureInitialized();
   runApp(MaterialApp(
-    title: "Taosil",
-    theme: ThemeData(
-      primarySwatch: Colors.red,
-    ),
-    home: const LoginView(),
-  ));
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  // This widget is the root of your application.
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Taosil',
+      title: "Taosil",
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.red,
       ),
-      home: const MyHomePage(title: 'Home Page'),
-    );
-  }
+      home: BlocProvider<AuthBloc>(
+        create: (context) => AuthBloc(FirebaseAuthProvider()),
+        child: const HomePage(),
+      )));
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
+class HomePage extends StatelessWidget {
+  const HomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ),
+    context.read<AuthBloc>().add(const AuthEventInitialize());
+    return BlocConsumer<AuthBloc, AuthState>(
+      listener: (context, state) {
+        if (state.isLoading) {
+          LoadingScreen().show(
+              context: context,
+              text: state.loadingText ?? "Please wait a moment");
+        } else {
+          LoadingScreen().hide();
+        }
+      },
+      builder: (context, state) {
+        if (state is AuthStateLoggedIn) {
+          //create the main view
+          return const Text("Main view");
+        } else if (state is AuthStateNeedsVerification) {
+          // create the needs verification view
+          return const Text("Needs verification screen");
+        } else if (state is AuthStateLoggedOut) {
+          return const LoginView();
+        } else if (state is AuthStateRegistering) {
+          return const RegisterView();
+        } else if (state is AuthEventForgotPassword) {
+          //create the forgot password view
+          return const Text("Forgot password view");
+        } else {
+          return const LoginView();
+        }
+      },
     );
   }
 }

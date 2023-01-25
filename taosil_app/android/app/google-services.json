@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "127690619516",
+    "project_id": "taxi-tao",
+    "storage_bucket": "taxi-tao.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:127690619516:android:e84937ed6c83cb0f9c67f9",
+        "android_client_info": {
+          "package_name": "com.example.taosil_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "127690619516-0f5onh8sau28a9apu6lsas0acq2v99s4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJLBH6CarkYVfp8utLDpRH1_XwV_XGb4k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "127690619516-0f5onh8sau28a9apu6lsas0acq2v99s4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

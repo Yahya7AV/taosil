@@ -5,8 +5,10 @@ import 'package:taosil_app/services/auth/bloc/auth_bloc.dart';
 import 'package:taosil_app/services/auth/bloc/auth_event.dart';
 import 'package:taosil_app/services/auth/bloc/auth_state.dart';
 import 'package:taosil_app/services/auth/firebase_auth_provider.dart';
+import 'package:taosil_app/views/forgot_password_view.dart';
 import 'package:taosil_app/views/login_view.dart';
 import 'package:taosil_app/views/register_view.dart';
+import 'package:taosil_app/views/verify_email_view.dart';
 
 void main(List<String> args) {
   WidgetsFlutterBinding.ensureInitialized();
@@ -42,15 +44,13 @@ class HomePage extends StatelessWidget {
           //create the main view
           return const Text("Main view");
         } else if (state is AuthStateNeedsVerification) {
-          // create the needs verification view
-          return const Text("Needs verification screen");
+          return const VerifyEmailView();
         } else if (state is AuthStateLoggedOut) {
           return const LoginView();
         } else if (state is AuthStateRegistering) {
           return const RegisterView();
         } else if (state is AuthEventForgotPassword) {
-          //create the forgot password view
-          return const Text("Forgot password view");
+          return const ForgotPasswordView();
         } else {
           return const LoginView();
         }

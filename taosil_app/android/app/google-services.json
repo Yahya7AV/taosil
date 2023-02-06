@@ -29,6 +29,13 @@
             {
               "client_id": "127690619516-0f5onh8sau28a9apu6lsas0acq2v99s4.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "127690619516-t4pf4sl0pudg6svnfrd8dla5j2rs5if1.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.taosilApp"
+              }
             }
           ]
         }

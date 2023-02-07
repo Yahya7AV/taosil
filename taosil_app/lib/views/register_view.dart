@@ -14,6 +14,7 @@ class RegisterView extends StatefulWidget {
 class _RegisterViewState extends State<RegisterView> {
   late final TextEditingController _email;
   late final TextEditingController _password;
+  bool _isHidden = true;
 
   @override
   void initState() {
@@ -29,11 +30,17 @@ class _RegisterViewState extends State<RegisterView> {
     super.dispose();
   }
 
+  void _togglePasswordView() {
+    setState(() {
+      _isHidden = !_isHidden;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Register a new Profile"),
+        title: const Text("Sign Up"),
       ),
       body: Padding(
         padding: const EdgeInsets.all(12.0),
@@ -52,10 +59,16 @@ class _RegisterViewState extends State<RegisterView> {
             ),
             TextField(
               controller: _password,
-              obscureText: true,
+              obscureText: _isHidden,
               enableSuggestions: false,
               autocorrect: false,
-              decoration: const InputDecoration(hintText: "Password"),
+              decoration: InputDecoration(
+                  hintText: "Password",
+                  suffix: InkWell(
+                    onTap: _togglePasswordView,
+                    child: Icon(
+                        _isHidden ? Icons.visibility_off : Icons.visibility),
+                  )),
             ),
             Center(
               child: Column(
@@ -83,14 +96,27 @@ class _RegisterViewState extends State<RegisterView> {
                         await showErrorDialog(context, "Authentication Error");
                       }
                     },
-                    child: const Text("Register"),
+                    child: const Text("Sign Up"),
                   ),
                   TextButton(
-                      onPressed: () {
-                        Navigator.of(context).pushNamedAndRemoveUntil(
-                            loginRoute, (route) => false);
-                      },
-                      child: const Text("Already have an account? Login here!"))
+                    onPressed: () {
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                          loginRoute, (route) => false);
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: const <Widget>[
+                        Text(
+                          "Already have an account? ",
+                          style: TextStyle(color: Colors.black),
+                        ),
+                        Text(
+                          "Log In",
+                          style: TextStyle(fontSize: 18, color: Colors.red),
+                        )
+                      ],
+                    ),
+                  )
                 ],
               ),
             )

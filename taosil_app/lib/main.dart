@@ -5,10 +5,12 @@ import 'package:taosil_app/views/forgot_password_view.dart';
 import 'package:taosil_app/views/login_view.dart';
 import 'package:taosil_app/views/register_view.dart';
 import 'package:taosil_app/views/verify_email_view.dart';
+import 'package:taosil_app/views/welcome_view.dart';
 
 void main(List<String> args) {
   WidgetsFlutterBinding.ensureInitialized();
   runApp(MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: "Taosil",
       theme: ThemeData(
         primarySwatch: Colors.red,
@@ -18,7 +20,8 @@ void main(List<String> args) {
         loginRoute: (context) => const LoginView(),
         registerRoute: (context) => const RegisterView(),
         verifyEmailRoute: (context) => const VerifyEmailView(),
-        forgotPasswordRoute: (context) => const ForgotPasswordView()
+        forgotPasswordRoute: (context) => const ForgotPasswordView(),
+        welcomeRoute: (context) => const WelcomeView()
       }));
 }
 
@@ -35,7 +38,7 @@ class HomePage extends StatelessWidget {
             final user = AuthService.firebase().currentUser;
             if (user != null) {
               if (user.isEmailVerified) {
-                return const LoginView();
+                return const WelcomeView();
               } else {
                 return const VerifyEmailView();
               }

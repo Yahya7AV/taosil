@@ -14,6 +14,7 @@ class LoginView extends StatefulWidget {
 class _LoginViewState extends State<LoginView> {
   late final TextEditingController _email;
   late final TextEditingController _password;
+  bool _isHidden = true;
 
   @override
   void initState() {
@@ -27,6 +28,12 @@ class _LoginViewState extends State<LoginView> {
     _email.dispose();
     _password.dispose();
     super.dispose();
+  }
+
+  void _togglePasswordView() {
+    setState(() {
+      _isHidden = !_isHidden;
+    });
   }
 
   @override
@@ -52,11 +59,16 @@ class _LoginViewState extends State<LoginView> {
             ),
             TextField(
               controller: _password,
-              obscureText: true,
+              obscureText: _isHidden,
               enableSuggestions: false,
               autocorrect: false,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 hintText: "Password",
+                suffix: InkWell(
+                  onTap: _togglePasswordView,
+                  child:
+                      Icon(_isHidden ? Icons.visibility_off : Icons.visibility),
+                ),
               ),
             ),
             //press the login button
@@ -90,14 +102,20 @@ class _LoginViewState extends State<LoginView> {
                   await showErrorDialog(context, "Authentication Error!");
                 }
               },
-              child: const Text("Login"),
+              child: const Text(
+                "Log In",
+                style: TextStyle(fontSize: 18),
+              ),
             ),
             // press the forgot the password button
             TextButton(
                 onPressed: () {
                   Navigator.of(context).pushNamed(forgotPasswordRoute);
                 },
-                child: const Text("Forgot Password?")),
+                child: const Text(
+                  "Forgot password?",
+                  style: TextStyle(fontSize: 16),
+                )),
             // register a new profile
             TextButton(
               onPressed: () {
@@ -106,7 +124,19 @@ class _LoginViewState extends State<LoginView> {
                   (route) => false,
                 );
               },
-              child: const Text("Don't have an account? Register Now!"),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: const <Widget>[
+                  Text(
+                    "Don't have an account? ",
+                    style: TextStyle(color: Colors.black),
+                  ),
+                  Text(
+                    "Sign Up",
+                    style: TextStyle(fontSize: 18, color: Colors.red),
+                  )
+                ],
+              ),
             )
           ],
         ),

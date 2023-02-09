@@ -39,16 +39,44 @@ class _RegisterViewState extends State<RegisterView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Sign Up"),
-      ),
       body: Padding(
-        padding: const EdgeInsets.all(12.0),
+        padding:
+            const EdgeInsets.only(top: 70, left: 12, right: 12, bottom: 12),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            const Center(
+              child: Text(
+                "Sign Up",
+                style: TextStyle(
+                  color: Colors.red,
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
             const Text(
                 "Enter your Email and password to register a new profile"),
+            const SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pushNamed(clientRegisterRoute);
+                  },
+                  child: const Text('Client'),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pushNamed(driverRegisterRoute);
+                  },
+                  child: const Text('Driver'),
+                ),
+              ],
+            ),
+            const SizedBox(height: 20),
             TextField(
               controller: _email,
               keyboardType: TextInputType.emailAddress,

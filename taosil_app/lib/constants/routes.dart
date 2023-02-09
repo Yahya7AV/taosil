@@ -5,3 +5,5 @@ const verifyEmailRoute = '/verify-email/';
 const createOrUpdateNoteRoute = '/notes/new-note/';
 const forgotPasswordRoute = '/forgot-password/';
 const welcomeRoute = '/welcome/';
+const driverRegisterRoute = '/driver-register';
+const clientRegisterRoute = '/client-register';

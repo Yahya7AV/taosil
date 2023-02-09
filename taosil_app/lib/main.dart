@@ -3,6 +3,8 @@ import 'package:taosil_app/constants/routes.dart';
 import 'package:taosil_app/services/auth/auth_service.dart';
 import 'package:taosil_app/views/forgot_password_view.dart';
 import 'package:taosil_app/views/login_view.dart';
+import 'package:taosil_app/views/register/client_register_view.dart';
+import 'package:taosil_app/views/register/driver_register_view.dart';
 import 'package:taosil_app/views/register_view.dart';
 import 'package:taosil_app/views/verify_email_view.dart';
 import 'package:taosil_app/views/welcome_view.dart';
@@ -21,7 +23,9 @@ void main(List<String> args) {
         registerRoute: (context) => const RegisterView(),
         verifyEmailRoute: (context) => const VerifyEmailView(),
         forgotPasswordRoute: (context) => const ForgotPasswordView(),
-        welcomeRoute: (context) => const WelcomeView()
+        welcomeRoute: (context) => const WelcomeView(),
+        driverRegisterRoute: (context) => const DriverRegisterView(),
+        clientRegisterRoute: (context) => const ClientRegisterView()
       }));
 }
 

@@ -7,3 +7,4 @@ const forgotPasswordRoute = '/forgot-password/';
 const welcomeRoute = '/welcome/';
 const driverRegisterRoute = '/driver-register';
 const clientRegisterRoute = '/client-register';
+const splashRoute = '/splash';

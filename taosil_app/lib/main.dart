@@ -6,6 +6,7 @@ import 'package:taosil_app/views/login_view.dart';
 import 'package:taosil_app/views/register/client_register_view.dart';
 import 'package:taosil_app/views/register/driver_register_view.dart';
 import 'package:taosil_app/views/register_view.dart';
+import 'package:taosil_app/views/splash_view.dart';
 import 'package:taosil_app/views/verify_email_view.dart';
 import 'package:taosil_app/views/welcome_view.dart';
 
@@ -25,7 +26,8 @@ void main(List<String> args) {
         forgotPasswordRoute: (context) => const ForgotPasswordView(),
         welcomeRoute: (context) => const WelcomeView(),
         driverRegisterRoute: (context) => const DriverRegisterView(),
-        clientRegisterRoute: (context) => const ClientRegisterView()
+        clientRegisterRoute: (context) => const ClientRegisterView(),
+        splashRoute: (context) => const SplashView()
       }));
 }
 
@@ -42,7 +44,7 @@ class HomePage extends StatelessWidget {
             final user = AuthService.firebase().currentUser;
             if (user != null) {
               if (user.isEmailVerified) {
-                return const WelcomeView();
+                return const SplashView();
               } else {
                 return const VerifyEmailView();
               }

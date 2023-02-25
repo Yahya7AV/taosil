@@ -1,6 +1,7 @@
-﻿import 'package:flutter/material.dart';
+﻿import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:flutter/material.dart';
 import 'package:taosil_app/constants/routes.dart';
-
+import 'package:taosil_app/utilities/colors/global_color.dart';
 
 class WelcomeView extends StatelessWidget {
   const WelcomeView({super.key});
@@ -8,86 +9,94 @@ class WelcomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea(
-        child: Container(
-          width: double
-              .infinity, //the parent will control the size (double.infinity)
-          height: MediaQuery.of(context)
-              .size
-              .height, //according to the screen(mediaquery)
-          padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 30),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            // ignore: prefer_const_literals_to_create_immutables
-            children: <Widget>[
-              const Text(
-                "Welcome",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 30,
+      body: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            // ignore: sized_box_for_whitespace
+            Container(
+              height: 130,
+              child: Center(
+                child: AnimatedTextKit(
+                  repeatForever: false,
+                  totalRepeatCount: 1,
+                  animatedTexts: [
+                    RotateAnimatedText(
+                      "Welcome",
+                      textStyle: TextStyle(
+                        fontSize: 50,
+                        color: GlobalColor.mainColor,
+                      ),
+                    ),
+                    RotateAnimatedText(
+                      "To",
+                      textStyle: TextStyle(
+                        fontSize: 50,
+                        color: GlobalColor.mainColor,
+                      ),
+                    ),
+                    RotateAnimatedText(
+                      "Taosil",
+                      rotateOut: false,
+                      textStyle: TextStyle(
+                        fontSize: 50,
+                        color: GlobalColor.mainColor,
+                      ),
+                    ),
+                  ],
                 ),
               ),
-              const SizedBox(height: 20),
-              Text(
-                "Book a taxi to your Destination",
-                textAlign: TextAlign.center,
-                style: TextStyle(
-                  color: Colors.red[700],
-                  fontSize: 15,
+            ),
+            const SizedBox(height: 20),
+            AnimatedTextKit(
+              repeatForever: false,
+              totalRepeatCount: 2,
+              animatedTexts: [
+                TyperAnimatedText(
+                  "Book a Taxi to YOUR destination...",
+                  textStyle: const TextStyle(fontSize: 20),
+                  speed: const Duration(microseconds: 100),
                 ),
-              ),
-              MaterialButton(
-                minWidth: double.infinity,
-                height: 60,
-                onPressed: () {
-                  Navigator.pushNamedAndRemoveUntil(
-                    context,
-                    loginRoute,
-                    (route) => false,
-                  );
-                },
-                shape: RoundedRectangleBorder(
-                  side: const BorderSide(
-                    color: Colors.grey,
-                  ),
-                  borderRadius: BorderRadius.circular(50),
-                ),
-                child: Text(
-                  "Log In",
-                  style: TextStyle(
-                    color: Colors.red[700],
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 20),
-              MaterialButton(
-                minWidth: double.infinity,
-                height: 60,
-                onPressed: () {
-                  Navigator.pushNamedAndRemoveUntil(
-                    context,
-                    registerRoute,
-                    (route) => false,
-                  );
-                },
-                color: Colors.red[700],
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(50),
-                ),
-                child: const Text(
-                  "Sign Up",
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                    fontWeight: FontWeight.w600,
+              ],
+            ),
+            Row(
+              children: [
+                Expanded(
+                  child: OutlinedButton(
+                    onPressed: () {
+                      Navigator.pushNamedAndRemoveUntil(
+                          context, loginRoute, (route) => false);
+                    },
+                    style: OutlinedButton.styleFrom(
+                      shape: const RoundedRectangleBorder(),
+                      side: BorderSide(color: GlobalColor.mainColor),
+                      padding: const EdgeInsets.symmetric(vertical: 15),
+                    ),
+                    child: Text("Login".toUpperCase()),
                   ),
                 ),
-              ),
-            ],
-          ),
+                const SizedBox(
+                  width: 12,
+                ),
+                Expanded(
+                  child: ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushNamedAndRemoveUntil(
+                          context, registerRoute, (route) => false);
+                    },
+                    style: ElevatedButton.styleFrom(
+                      elevation: 0,
+                      shape: const RoundedRectangleBorder(),
+                      side: BorderSide(color: GlobalColor.mainColor),
+                      padding: const EdgeInsets.symmetric(vertical: 15),
+                    ),
+                    child: Text("Register".toUpperCase()),
+                  ),
+                ),
+              ],
+            )
+          ],
         ),
       ),
     );
